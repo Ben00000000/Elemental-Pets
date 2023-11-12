@@ -129,11 +129,10 @@ var ready = function() {
 	loading.add( new Text("Please wait...", $font2, 240, 170, 0.5) );
 	Engine.fadeInOut( null, function() {
 		loading.add(new Sprite('start'),0);
-		loading.get(1).setText("Super Cute Bubble Pets\nfrom Hell", $font3);
+		loading.get(1).setText("Elemenetal Pets", $font3);
 		loading.get(1).py = 60;
-		loading.get(2).setText("click / tap to start");
+		loading.get(2).setText("Tap to start");
 		loading.get(2).py = 245;
-		loading.add( new Text("(c) Sebastian Nette & Genevir Ensomo", $font4, 240, 315, 0.5, 1) );
 		Engine.fadeIn(function() { loading.get(0).click = gameStart; }, 2000, 0);
 	}, 2000, 1000 );
 
@@ -171,7 +170,7 @@ var ready = function() {
 	bg.add( new Text( "TUTORIAL", $font2, 30, 40 ) );
 	bg.add( new Text( "Protect your turf against the jellies by commanding\nyour elemental pets.\nIf they reach the end of the lane, you lose 1 Life.\nEach element is weak against itself.\nFire beats Earth, Water beats Fire, Earth beats Water.\nWind is the only neutral element.\nEach 8th round, 1 Life is restored.", null, 30, 90 ) );
 	bg.add( new Sprite( 'wood', 450, 275, 1, 1 ) );
-	bg.add( new Text( "Start Game", $font2, 430, 258, 1, 1 ) );
+	bg.add( new Text( "GO!", $font2, 430, 258, 1, 1 ) );
 	bg.get(2).click = function() {
 		sound.play('select');
 		changeScene('main',1,nextRound);
