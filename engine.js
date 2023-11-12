@@ -665,25 +665,24 @@ var GameEngine = Class({
 		ctx.fillRect(0, 0, 480, 320);
 	},
 	resize: function() {
-		var wh = W.innerHeight,
-			ww = W.innerWidth,
-			sh = ww * 2/3,
-			sw = ww;
+        var wh = W.innerHeight,
+            ww = W.innerWidth,
+            sh = wh,
+            sw = ww;
 
-		if(sh > wh) {
-			sw = wh * 1.5;
-			sh = wh;
-		}
+        this.pixel.screenW = sw | 0;
+        this.pixel.screenH = sh | 0;
 
-		this.pixel.screenW = sw | 0;
-		this.pixel.screenH = sh | 0;
+        this.pixel.factorX = 480 / this.pixel.screenW;
+        this.pixel.factorY = 320 / this.pixel.screenH;
 
-		this.pixel.factorX = 480 / this.pixel.screenW;
-		this.pixel.factorY = 320 / this.pixel.screenH;
+        this.pixel.offsetX = 0;
+        this.pixel.offsetY = 0;
 
-		this.pixel.offsetX = floor((ww-sw)/2);
-		this.pixel.offsetY = floor((wh-sh)/2);
-	}
+        setSize(this.view, ww, wh);
+        setSize(this.pixel, this.pixel.screenW, this.pixel.screenH);
+    }
+
 });
 
 // doc
