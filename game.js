@@ -125,8 +125,8 @@ var ready = function() {
 	};
 
 	// loading
-	loading.add( new Text("MOKGames.com", $font1, 240, 150, 0.5, 0.5) );
-	loading.add( new Text("presents", $font2, 240, 170, 0.5) );
+	loading.add( new Text("Loading", $font1, 240, 150, 0.5, 0.5) );
+	loading.add( new Text("Please wait...", $font2, 240, 170, 0.5) );
 	Engine.fadeInOut( null, function() {
 		loading.add(new Sprite('start'),0);
 		loading.get(1).setText("Super Cute Bubble Pets\nfrom Hell", $font3);
