@@ -2,8 +2,8 @@
 <html>
 
 <head>
-	<title>Bubble Pets</title>
-	<style>
+    <title>Bubble Pets</title>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -23,8 +23,9 @@
         body {
             background: #000;
             text-align: center;
-            display: table-cell;
-            vertical-align: middle;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
         }
 
         canvas {
@@ -35,7 +36,7 @@
             -ms-interpolation-mode: nearest-neighbor;
             width: 100vw;
             height: 100vh;
-            display: block; 
+            display: block;
         }
 
         .pointer {
@@ -47,9 +48,9 @@
 
 <body unselectable="on" style="-moz-user-select: none; -webkit-user-select: none; user-select: none">
 
-<script src="jsfxr.js"></script>
-<script src="engine.js"></script>
-<script src="game.js"></script>
+    <script src="jsfxr.js"></script>
+    <script src="engine.js"></script>
+    <script src="game.js"></script>
 
 </body>
 
