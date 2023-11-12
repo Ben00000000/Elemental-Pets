@@ -8,9 +8,9 @@ var Engine = new GameEngine( D.body ),
 	stage = Engine.stage,
 
 	// colors
-	$white = Gradient(30,0xf6f8f9,0xe5ebee,0xd7dee3,0xf5f7f9),
-	$green = Gradient(40,0x9dd53a,0xa1d54f,0x80c217,0x7cbc0a),
-	$red = Color(0xff0000),
+	$white = Gradient(30,0x7F7F7F,0xBFBFBF,0xd7dee3,0xDFDFDF),
+	$green = Gradient(40,0xF23C34,0xFABEBB,0xF34C44,0x7cbc0a),
+	$red = Color(0x641000),
 
 	// fonts
 	$font1 = [ 24, $white, 0, 4 ],
@@ -34,9 +34,9 @@ var Engine = new GameEngine( D.body ),
 		str2arr('wind wind2'),
 		str2arr('fire fire2')
 	],
-	audiobutton, 
+	audiobutton,
 	pausebutton,
-	
+
 	i = 0,
 
 	// drag stuff
@@ -58,9 +58,9 @@ var Engine = new GameEngine( D.body ),
 	// scenes
 	sceneNames = str2arr('loading main pause gameover tutorial'),
 	currScene = sceneNames[0],
-	
+
 	bg, mainArea, guiBG, entities, score, wave, waveText, startbutton, heartbox, c, projectile,
-	
+
 	laneSprites = [];
 
 // create scenes
@@ -73,8 +73,8 @@ for(i = 0; i < 5; i++) {
 // change between scenes
 function changeScene( scene, fade, cb ) {
 	if(fade) {
-		Engine.fadeOutIn(function() { 
-			changeScene(scene); 
+		Engine.fadeOutIn(function() {
+			changeScene(scene);
 		}, cb || null, 1500, 200);
 	} else if( currScene !== scene ) {
 		W[currScene].visible = false;
@@ -88,14 +88,14 @@ function changeScene( scene, fade, cb ) {
 // load graphics
 ShapeLoader({
 	lane:
-	[360,50,[25,27,14,18,6,32,9,74,15,97,19,74],[16774018],[2,14596419],[48,27,37,18,29,31,32,70,38,92,42,70],[16774018],[2,14596419],[73,27,63,18,54,31,58,72,64,94,67,72],[16774018],[2,14596419],[98,27,87,18,78,32,82,74,88,97,92,74],[16774018],[2,14596419],[100,46,100,12,53,6,6,12,2,52,7,92,29,92,100,92],[16766285],null],
+	[360,40,[25,27,14,18,6,32,9,74,15,97,19,74],[16774018],[2,14596419],[48,27,37,18,29,31,32,70,38,92,42,70],[16774018],[2,14596419],[73,27,63,18,54,31,58,72,64,94,67,72],[16774018],[2,14596419],[98,27,87,18,78,32,82,74,88,97,92,74],[16774018],[2,14596419],[100,46,100,12,53,6,6,12,2,52,7,92,29,92,100,92],[16766285],null],
 	start:
 	[480,320,[71,7,100,0,100,0,100,50,76,49,76,37,62,38,60,31],["#fff"],null,[24,43,0,44,0,0,0,0,28,11,31,35],["#fff"],null,[16,81,17,76,47,74,81,75,82,80,81,85,48,88,17,86],[11896620],[2,5194264],[100,100,75,100,41,56,21,47,68,36,100,61,100,100,100,100],[16776371],null,[34,33,0,57,0,100,0,100,0,100,100,100,100,100,100,53],[5422930],null,[0,0,0,0,0,0,100,0,100,100,100,100,0,100,0,100],[6864580,13629439],null],
 	bg: [460,300,[3,16,6,10,53,6,94,10,98,20,93,24,60,25,7,24],[15262619],null,[0,0,0,0,100,0,100,0,100,100,100,100,0,100,0,100],["#fff"],null],
 	earth: [70,60,[24,26,30,30,34,38,29,43,18,45,19,34],[16775485],[1.5,0],[11,21,22,32,16,17,29,20,33,24,28,34,39,19,41,34,41,39,29,40,44,43,30,52,26,51,24,42,24,56,16,50,7,43,20,38,9,41,9,33],[14707049],[1.5,0],[72,27,79,32,83,41,78,45,67,47,68,35],[16775485],[1.5,0],[60,21,71,32,65,17,78,20,82,24,77,34,88,19,90,34,90,39,78,40,95,42,81,53,77,53,73,42,73,56,65,50,56,43,69,38,58,41,58,33],[14707049],[1.5,0],[70,69,72,65,77,66,74,70],["#fff"],[1,"#fff"],[66,75,72,76,79,72,75,65,69,60,66,67],[0],[1.5,0],[42,71,44,67,49,66,47,72],["#fff"],[1,"#fff"],[42,83,38,75,36,67,44,65,51,68,48,76],[0],[1.5,0],[52,89,59,82,66,89,59,81],[0],[1.5,0],[24,15,30,42,26,47,23,51,19,58,12,72,13,58,10,64,13,51,4,66],[3572245],[1.5,0],[16,51,24,41,33,29,50,30,63,29,70,38,77,45,81,59,86,94,47,95,16,95,15,63],["#fff",10092433],[1.5,0],[46,51,66,24,52,34,62,19,46,33,63,9,24,42,44,54],[3572245],[1.5,0],[73,44,71,29,86,39,92,57,82,47,84,52,89,77,78,49],[3572245],[1.5,0]],
-	wood: [150,60,[35,95,4,90,84,76,94,89],[4865050],null,[14,50,4,60,85,50,95,60],[7034662],null,[83,32,94,33,85,25,6,34],[7034662],null,[1,17,2,8,56,3,95,7,97,20,96,31,96,44,97,59,99,78,96,93,42,98,4,94,1,81,2,57,4,42,2,30],[13409325,9200184],[1.5,0]],
+	wood: [70,60,[35,95,4,90,84,76,94,89],[4865050],null,[14,50,4,60,85,50,95,60],[7034662],null,[83,32,94,33,85,25,6,34],[7034662],null,[1,17,2,8,56,3,95,7,97,20,96,31,96,44,97,59,99,78,96,93,42,98,4,94,1,81,2,57,4,42,2,30],[13409325,9200184],[1.5,0]],
 	water: [70,60,[82,7,92,12,98,24,90,29,78,31,78,17],[16775485],[1.5,7369491],[51,34,51,31,66,13,83,20,85,15,70,15,58,17,48,32],[3223938],[1.5,0],[0,38,23,62,30,71,21,77,0,92,12,73,0,68,12,64],[3223938],[1.5,0],[70,69,72,65,77,66,74,70],["#fff"],[1,"#fff"],[66,75,72,76,79,72,75,65,69,60,66,67],[0],[1.5,0],[42,71,44,67,49,66,47,72],["#fff"],[1,"#fff"],[42,83,38,75,36,67,44,65,51,68,48,76],[0],[1.5,0],[52,89,59,82,66,89,59,81],[0],[1.5,0],[16,51,24,41,33,29,50,30,63,29,72,38,79,45,81,59,86,94,47,95,16,95,15,63],["#fff",7966420],[1.5,0],[40,45,49,32,44,33,33,8,38,33,41,33,32,38,22,18,35,55,13,35,30,59,6,43,18,55,23,60],[3223938],[1.5,0],[59,73,34,11,33,28,24,23,26,36,16,37,18,47,9,45],[14341887],[1,2894643],[71,66,76,59,92,26,85,56,95,54,86,66,94,88,78,68],[3223938],[1.5,0]],
-	heart: [25,20,[0,0,25,0,50,0,50,25,50,0,75,0,100,0,100,40,100,80,50,100,0,80,0,40],[16575740,16492257,16615895,16492257],[1.5,0,"#fff"]],
+	heart: [25,20,[0,0,25,0,50,0,50,25,50,0,75,0,100,0,100,40,100,80,50,100,0,80,0,40],[16575740,16492257,16615895,16492257],[1.5,0,"#511916"]],
 	fire: [70,60,[70,69,72,65,77,66,74,70],["#fff"],[1,"#fff"],[66,75,72,76,79,72,75,65,69,60,66,67],[0],[1.5,0],[42,71,44,67,49,66,47,72],["#fff"],[1,"#fff"],[42,83,38,75,36,67,44,65,51,68,48,76],[0],[1.5,0],[52,89,59,82,66,89,59,81],[0],[1.5,0],[24,31,22,25,21,21,30,30,25,28,42,32,41,24,35,17,46,26,46,21,49,24,56,31,50,10,57,20,62,19,73,34,77,55,71,48,30,36,36,67,32,76,22,82,13,75,9,64,25,76,11,39,19,45,27,44],["#f00"],null,[16,51,24,41,33,29,50,30,63,29,72,38,79,45,81,59,86,94,47,95,16,95,15,63],["#f00"],[1.5,0],[10,65,1,54,9,88,29,84,45,66,40,43,50,28,53,40,56,30,69,44,78,75,79,36,73,15,47,2,46,13,60,35,44,5,26,5,34,18,44,34,30,21,14,13,13,22,25,41,14,41,6,26,8,57,16,65],[16768517],[2,0]],
 	wind: [70,60,[27,26,35,22,48,17,66,20,76,24,66,26,57,29,44,28],["#fff"],[2,16775219],[74,71,76,67,81,68,78,72],["#fff"],[1,"#fff"],[70,77,76,78,83,74,79,67,73,62,70,69],[0],[1.5,0],[46,73,48,69,53,68,51,74],["#fff"],[1,"#fff"],[46,85,42,77,40,69,48,67,55,70,52,78],[0],[1.5,0],[56,91,63,84,70,91,63,83],[0],[1.5,0],[19,65,25,63,32,69,25,75,21,75,20,71],[13163232],[1.25,0],[23,79,14,81,6,78,13,72,9,74,7,70,5,65,14,65,2,67,6,54,16,51,25,60,31,67,26,74],[13163232],[1.25,0],[20,53,28,43,37,31,54,32,67,31,74,40,81,47,85,61,90,96,51,97,20,97,19,65],["#fff",14348533],[1.5,0],[90,55,82,59,85,72,90,65],[13163232],[1,0],[75,60,89,48,95,44,98,50,100,56,96,58,100,58,98,65,93,66,98,65,100,73,91,72,75,72,74,71],[13163232],[1.25,0]],
 	pause: [40,40,[57,41,58,24,67,21,77,24,78,41,77,82,68,86,59,82],["#fff"],[2,0],[23,47,24,26,33,21,44,24,44,48,44,83,34,86,25,82],["#fff"],[2,0],[0,0,50,0,100,0,100,49,100,100,50,100,0,100,0,49],[16753152,16740355],[2,0]],
@@ -114,14 +114,14 @@ ShapeLoader({
 var ready = function() {
 
 	// start music on game start
-	main.start = function() { 
-		sound.play('theme',1); 
+	main.start = function() {
+		sound.play('theme',1);
 	};
 
 	// disable music on gameover and show final score
-	gameover.start = function() { 
+	gameover.start = function() {
 		gameover.get(2).setText( 'Score: ' + gamescore + '\nWave: ' + currRound );
-		sound.play(null,1); 
+		sound.play(null,1);
 	};
 
 	// loading
@@ -141,8 +141,8 @@ var ready = function() {
 	setSize(pause.get(0), 480, 320);
 	pause.add( new Text("Game Paused", $font1, 240, 150, 0.5, 0.5) );
 	pause.add( new Sprite( 'resume', 470, 10, 1, 0 ) );
-	pause.get(2).click = function() { 
-		changeScene('main'); 
+	pause.get(2).click = function() {
+		changeScene('main');
 	};
 
 	// create gameover scene
@@ -152,9 +152,9 @@ var ready = function() {
 	gameover.add( new Text('', $font2, 240, 155, 0.5, 0.5) );
 	gameover.add( new Sprite( 'wood', 240, 200, 0.5 ) );
 	gameover.add( new Text( "Restart", $font2, 240, 215, 0.5 ) );
-	gameover.get(3).click = function() { 
+	gameover.get(3).click = function() {
 		sound.play('select');
-		changeScene('loading'); 
+		changeScene('loading');
 		currRound = 0;
 		gameend = false;
 		battleIndex = -1;
@@ -167,8 +167,8 @@ var ready = function() {
 	bg = new Sprite( 'bg', 10, 10 );
 	tutorial.add( bg );
 
-	bg.add( new Text( "TUTORIAL", $font2, 30, 40 ) );
-	bg.add( new Text( "Protect your turf against the jellies by commanding\nyour elemental pets.\nIf they reach the end of the lane, you lose 1 Life.\nEach element is weak against itself.\nFire beats Earth, Water beats Fire, Earth beats Water.\nWind is the only neutral element.\nEach 8th round, 1 Life is restored.", null, 30, 90 ) );
+	bg.add( new Text( "Mechanics", $font2, 30, 40 ) );
+	bg.add( new Text( "Safeguard your turf from the encroaching jellies by \n commanding your elemental pets.\nLosing 1 Life is the consequence if they manage \nto reach the end of the lane.\nEach element exhibits a weakness to itself: \nFire prevails over Earth, Water conquers Fire, and \nEarth overcomes Water. Wind remains the only \n neutral element. Every eighth round, \n 1 Life is restored.", null, 30, 90 ) );
 	bg.add( new Sprite( 'wood', 450, 275, 1, 1 ) );
 	bg.add( new Text( "GO!", $font2, 430, 258, 1, 1 ) );
 	bg.get(2).click = function() {
@@ -195,7 +195,7 @@ var ready = function() {
 
 	// create lanes
 	for(i = 0; i < 3; i++) {
-		mainArea.add(laneSprites[i] = new Sprite( 'lane', 480, 16*(3.5+i) + i * 50, 1)); 
+		mainArea.add(laneSprites[i] = new Sprite( 'lane', 480, 16*(3.5+i) + i * 50, 1));
 	}
 
 	// gui
@@ -220,7 +220,7 @@ var ready = function() {
 
 	// startbutton
 	startbutton = new Sprite( 'wood', 240, 10, 0.5, 0 );
-	startbutton.add( new Text( "FIGHT!", $font6, -35, startbutton.height/2, 0, 0.5 ) );
+	startbutton.add( new Text( "GO!", $font6, -35, startbutton.height/2, 0, 0.5 ) );
 	startbutton.click = function() {
 		startbutton.visible = false;
 		EventManager.enabled = false;
@@ -230,7 +230,7 @@ var ready = function() {
 	entities.add(startbutton);
 
 	// heart container
-	heartbox =  new Sprite( GradientBox(100,30, Gradient(30,0xffffff,0xffffff,0xa0a0a0), 5), 382, 32, 0, 1 );
+	heartbox =  new Sprite( GradientBox(100,30, Gradient(30,0xffffff,0xffffff,0xF34C44), 5), 382, 32, 0, 1 );
 	guiBG.add( heartbox );
 
 	// create heart
@@ -257,7 +257,7 @@ var ready = function() {
 						this.hero.py = drag.slot.py + this.hero.height/2;
 						drag.slot.hero = this.hero;
 						this.hero.slot = drag.slot;
-					} 
+					}
 					// hero was never on a slot, old hero to start
 					else {
 						this.hero.px = this.hero.startx;
@@ -306,25 +306,25 @@ var ready = function() {
 
 	// move hero on mouse move
 	main.mousemove = function(x,y) {
-		if(drag) { 
-			drag.px = x; 
+		if(drag) {
+			drag.px = x;
 			drag.py = y;
-		} 
+		}
 	};
 
 	// drop hero on mouseup
-	main.mouseup = function() { 
+	main.mouseup = function() {
 		if(drag) {
-			if(drag.slot) { 
+			if(drag.slot) {
 				drag.slot.hero = null;
 				drag.slot = null;
 			}
-			drag.px = drag.startx; 
-			drag.py = drag.starty; 
+			drag.px = drag.startx;
+			drag.py = drag.starty;
 			drag = null;
 			checkStart();
-		} 
-	};	
+		}
+	};
 
 	// pause button
 	pausebutton = new Sprite( 'pause', 470, 10, 1 );
@@ -401,7 +401,7 @@ var ready = function() {
 			setSize(enemy, 50, 50);
 			enemy.health = kind !== 2 ? 5 : 4;
 			enemy.py -= 5;
-		} 
+		}
 		// normal mob
 		else {
 			setSize(enemy, 40, 40);
@@ -423,7 +423,7 @@ var ready = function() {
 
 	// spawn next wave
 	function spawnWave() {
-	
+
 		// spawn 1 mob per lane
 		for(i = 0; i < 3; i++) {
 			spawnEnemy(i+0);
@@ -507,7 +507,7 @@ var ready = function() {
 		setTimeout(startBattle,200);
 	};
 
-	// little ball 
+	// little ball
 	projectile = new Sprite(getCanvas(12,12),0,0,0.5,0.5),
 	ctx = projectile.canvas.ctx;
 	ctx.beginPath();
@@ -551,11 +551,11 @@ var ready = function() {
 						// find next mob in this lane
 						findMob(battleIndex);
 						if(!toFight) {
-							startBattle(); 
+							startBattle();
 							return;
 						}
 					}
-				} 
+				}
 				// mob didnt die
 				else {
 					updateHealthbar(toFight);
@@ -594,7 +594,7 @@ var ready = function() {
 
 		// no enemy -> next lane
 		if(!toFight) {
-			startBattle(); 
+			startBattle();
 			return;
 		}
 
@@ -618,4 +618,4 @@ var ready = function() {
 };
 
 // load assets
-Texture( 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAALBAMAAACJ0mBNAAAAIVBMVEUfZZuTzhhOfcsAgwB9uhSQglVAq+uIdUuUkV5rUj52Z0siKmQfAAAARklEQVQI12MQFHR0ERRgAANBR0djRyjbdKppxUIoe2ppRHmzAYSdpqaklKQAYSspMSgogdmEgTEQggHjFGFBQUEo21AQCABi4QpDNO5ZqAAAAABJRU5ErkJggg==', ready, 2, 1, 't' );
+Texture( 'https://raw.githubusercontent.com/Ben00000000/asstes/main/qqqqqqqqqqq.png', ready, 2, 1, 't' );
